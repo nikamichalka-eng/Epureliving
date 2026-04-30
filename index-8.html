@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Épure Living</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cream: #faf8f5;
+      --warm-white: #f5f2ed;
+      --stone: #c8bfb0;
+      --taupe: #8c7b6b;
+      --deep: #2c2520;
+      --accent: #7a6e65;
+      --sage: #a3a98f;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--deep); font-weight: 300; overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 26px 60px;
+      background: rgba(250,248,245,0.93); backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(200,191,176,0.3);
+      animation: fadeDown 0.8s ease both;
+    }
+    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 300; letter-spacing: 0.08em; color: var(--deep); text-decoration: none; }
+    .nav-logo span { font-style: italic; }
+    .nav-links { display: flex; gap: 40px; list-style: none; }
+    .nav-links a { font-size: 0.75rem; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--taupe); text-decoration: none; transition: color 0.3s; }
+    .nav-links a:hover { color: var(--deep); }
+
+    /* HERO */
+    .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 160px; }
+    .hero-left { display: flex; flex-direction: column; justify-content: center; padding: 80px 60px; animation: fadeUp 1s 0.3s ease both; }
+    .hero-eyebrow { font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sage); margin-bottom: 32px; }
+    .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 4.5vw, 5.2rem); font-weight: 300; line-height: 1.1; color: var(--deep); margin-bottom: 30px; }
+    .hero-title em { font-style: italic; color: var(--taupe); }
+    .hero-subtitle { font-size: 0.93rem; line-height: 1.9; color: var(--accent); max-width: 380px; margin-bottom: 48px; }
+    .btn-primary { display: inline-block; padding: 15px 40px; background: var(--deep); color: var(--cream); font-size: 0.73rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; transition: background 0.3s, transform 0.2s; align-self: flex-start; }
+    .btn-primary:hover { background: var(--taupe); transform: translateY(-2px); }
+    .hero-right { position: relative; overflow: hidden; animation: fadeIn 1.2s 0.5s ease both; }
+    .hero-right img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+    .hero-right-overlay { position: absolute; inset: 0; background: linear-gradient(to right, rgba(250,248,245,0.1), transparent); }
+
+    /* STRIP */
+    .strip { background: var(--deep); padding: 16px 60px; display: flex; gap: 48px; overflow: hidden; }
+    .strip-item { font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--stone); white-space: nowrap; flex-shrink: 0; }
+    .strip-dot { color: var(--taupe); }
+
+    /* ABOUT */
+    .about { display: grid; grid-template-columns: 1fr 1fr; max-width: 1300px; margin: 0 auto; padding: 120px 60px; align-items: center; gap: 80px; }
+    .section-label { font-size: 0.68rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sage); margin-bottom: 22px; }
+    .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 3vw, 3rem); font-weight: 300; line-height: 1.2; color: var(--deep); margin-bottom: 28px; }
+    .section-title em { font-style: italic; color: var(--taupe); }
+    .about-text { font-size: 0.9rem; line-height: 2; color: var(--accent); margin-bottom: 18px; }
+    .about-img-wrap { position: relative; overflow: hidden; border-radius: 2px; aspect-ratio: 4/5; }
+    .about-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .about-img-caption { position: absolute; bottom: 24px; left: 24px; background: rgba(250,248,245,0.9); padding: 12px 20px; backdrop-filter: blur(4px); }
+    .about-img-caption p { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.95rem; color: var(--deep); }
+
+    /* SERVICES */
+    .services { background: var(--warm-white); padding: 120px 60px; }
+    .services-header { max-width: 1300px; margin: 0 auto 60px; }
+    .services-grid { max-width: 1300px; margin: 0 auto; display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+    .service-card { background: var(--cream); overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; }
+    .service-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(44,37,32,0.09); }
+    .service-img-wrap { overflow: hidden; height: 220px; }
+    .service-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
+    .service-card:hover .service-img { transform: scale(1.05); }
+    .service-body { padding: 36px 32px 40px; }
+    .service-number { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 300; color: rgba(200,191,176,0.45); line-height: 1; margin-bottom: 14px; }
+    .service-title { font-family: 'Cormorant Garamond', serif; font-size: 1.55rem; font-weight: 300; color: var(--deep); margin-bottom: 14px; line-height: 1.2; }
+    .service-desc { font-size: 0.86rem; line-height: 1.9; color: var(--accent); }
+
+    /* PROCESS */
+    .process { padding: 120px 60px; max-width: 1300px; margin: 0 auto; }
+    .process-header { text-align: center; margin-bottom: 72px; }
+    .process-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+    .process-item { display: grid; grid-template-columns: auto 1fr; gap: 32px; padding: 48px 40px; background: var(--warm-white); align-items: flex-start; transition: background 0.3s; }
+    .process-item:hover { background: #ede9e3; }
+    .process-num { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 300; color: var(--stone); line-height: 1; }
+    .process-content h4 { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 400; color: var(--deep); margin-bottom: 10px; }
+    .process-content p { font-size: 0.85rem; line-height: 1.8; color: var(--accent); }
+
+    /* CAPSULE */
+    .capsule { display: grid; grid-template-columns: 1fr 1fr; min-height: 680px; }
+    .capsule-img { position: relative; overflow: hidden; }
+    .capsule-img img { width: 100%; height: 100%; object-fit: cover; }
+    .capsule-content { background: var(--deep); padding: 80px 60px; display: flex; flex-direction: column; justify-content: center; }
+    .capsule-content .section-label { color: var(--stone); }
+    .capsule-content .section-title { color: var(--cream); }
+    .capsule-content .section-title em { color: var(--stone); }
+    .capsule-text { font-size: 0.9rem; line-height: 2; color: rgba(200,191,176,0.7); margin-bottom: 16px; }
+    .capsule-items { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 28px 0; }
+    .capsule-item { border: 1px solid rgba(200,191,176,0.2); padding: 20px; transition: border-color 0.3s; }
+    .capsule-item:hover { border-color: rgba(200,191,176,0.5); }
+    .capsule-item-title { font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: var(--cream); margin-bottom: 6px; }
+    .capsule-item-text { font-size: 0.78rem; line-height: 1.7; color: rgba(200,191,176,0.55); }
+    .btn-outline { display: inline-block; padding: 14px 36px; border: 1px solid var(--stone); color: var(--stone); font-size: 0.73rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; align-self: flex-start; transition: all 0.3s; }
+    .btn-outline:hover { background: var(--stone); color: var(--deep); }
+
+    /* GALLERY */
+    .gallery { display: grid; grid-template-columns: repeat(4,1fr); gap: 3px; }
+    .gallery-item { aspect-ratio: 1; overflow: hidden; position: relative; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease, filter 0.4s; filter: saturate(0.8); }
+    .gallery-item:hover img { transform: scale(1.07); filter: saturate(1); }
+    .gallery-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 16px; background: linear-gradient(transparent, rgba(44,37,32,0.55)); font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(250,248,245,0.85); opacity: 0; transition: opacity 0.3s; }
+    .gallery-item:hover .gallery-label { opacity: 1; }
+
+    /* TESTIMONIAL */
+    .testimonial { padding: 100px 60px; text-align: center; max-width: 860px; margin: 0 auto; }
+    .quote-mark { font-family: 'Cormorant Garamond', serif; font-size: 7rem; color: var(--stone); line-height: 0.4; margin-bottom: 44px; opacity: 0.32; }
+    .quote-text { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.4rem, 2.2vw, 1.9rem); font-weight: 300; font-style: italic; color: var(--deep); line-height: 1.65; margin-bottom: 28px; }
+    .quote-author { font-size: 0.73rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--taupe); }
+
+    /* CONTACT */
+    .contact-section { background: var(--warm-white); display: grid; grid-template-columns: 1fr 1fr; }
+    .contact-img { position: relative; overflow: hidden; min-height: 600px; }
+    .contact-img img { width: 100%; height: 100%; object-fit: cover; }
+    .contact-form-wrap { padding: 80px 60px; display: flex; flex-direction: column; justify-content: center; }
+    .contact-intro { font-size: 0.88rem; line-height: 1.9; color: var(--accent); margin-bottom: 28px; }
+    .contact-detail { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; font-size: 0.85rem; color: var(--taupe); }
+    .contact-form { display: flex; flex-direction: column; gap: 18px; margin-top: 32px; }
+    .form-group { display: flex; flex-direction: column; gap: 7px; }
+    .form-label { font-size: 0.67rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--taupe); }
+    .form-input, .form-textarea { background: var(--cream); border: 1px solid rgba(200,191,176,0.5); padding: 13px 16px; font-family: 'Jost', sans-serif; font-size: 0.87rem; font-weight: 300; color: var(--deep); outline: none; transition: border-color 0.3s; width: 100%; }
+    .form-input:focus, .form-textarea:focus { border-color: var(--taupe); }
+    .form-textarea { height: 110px; resize: none; }
+    .form-submit { padding: 15px 40px; background: var(--deep); color: var(--cream); border: none; font-family: 'Jost', sans-serif; font-size: 0.73rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; align-self: flex-start; transition: background 0.3s; }
+    .form-submit:hover { background: var(--taupe); }
+
+    /* FOOTER */
+    footer { background: var(--deep); padding: 56px 60px 36px; }
+    .footer-top { display: flex; justify-content: space-between; align-items: flex-start; padding-bottom: 36px; border-bottom: 1px solid rgba(200,191,176,0.12); margin-bottom: 28px; }
+    .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 300; color: var(--cream); letter-spacing: 0.06em; }
+    .footer-logo span { font-style: italic; }
+    .footer-tagline { font-size: 0.76rem; color: rgba(200,191,176,0.4); margin-top: 7px; letter-spacing: 0.1em; }
+    .footer-links { display: flex; gap: 28px; list-style: none; }
+    .footer-links a { font-size: 0.73rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(200,191,176,0.45); text-decoration: none; transition: color 0.3s; }
+    .footer-links a:hover { color: var(--stone); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+    .footer-copy { font-size: 0.72rem; color: rgba(200,191,176,0.28); letter-spacing: 0.08em; }
+    .footer-location { font-size: 0.72rem; color: rgba(200,191,176,0.28); }
+
+    /* ANIMATIONS */
+    @keyframes fadeDown { from { opacity:0; transform:translateY(-16px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+    .reveal { opacity:0; transform:translateY(28px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+
+    .prices-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; }
+    .price-card { background: var(--warm-white); padding: 48px 36px; text-align:center; transition: background 0.3s; }
+    .price-card:hover { background: #ede9e3; }
+    .price-card--dark { background: var(--deep) !important; }
+    .price-title { font-family:'Cormorant Garamond',serif; font-size:1.3rem; font-weight:300; color:var(--deep); margin-bottom:16px; line-height:1.3; }
+    .price-line { width:32px; height:1px; background:var(--stone); margin: 0 auto 20px; }
+    .price-amount { font-family:'Cormorant Garamond',serif; font-size:2rem; font-weight:300; color:var(--taupe); margin-bottom:8px; }
+    .price-min { font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--sage); }
+
+    /* MOBILE */
+    @media (max-width: 900px) {
+      nav { padding: 14px 20px; }
+      .nav-links { gap: 14px; }
+      .nav-links a { font-size: 0.65rem; letter-spacing: 0.1em; }
+      .nav-logo-tagline { display: none; }
+      .nav-logo-name { font-size: 1.1rem !important; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-left { padding: 50px 24px 40px; }
+      .hero-right { height: 280px; }
+      .strip { padding: 14px 20px; gap: 24px; }
+      .about { grid-template-columns: 1fr; padding: 60px 24px; gap: 40px; }
+      .services { padding: 60px 24px; }
+      .services-grid { grid-template-columns: 1fr; gap: 16px; }
+      .process { padding: 60px 24px; }
+      .prices-grid { grid-template-columns: 1fr 1fr; }
+      .process-grid { grid-template-columns: 1fr; }
+      .capsule { grid-template-columns: 1fr; }
+      .capsule-img { min-height: 300px; }
+      .capsule-content { padding: 60px 24px; }
+      .gallery { grid-template-columns: repeat(2,1fr); }
+      .testimonial { padding: 60px 24px; }
+      .contact-section { grid-template-columns: 1fr; }
+      .contact-img { min-height: 260px; }
+      .contact-form-wrap { padding: 50px 24px; }
+      footer { padding: 40px 24px 24px; }
+      .footer-top { flex-direction: column; gap: 20px; }
+      .footer-bottom { flex-direction: column; gap: 6px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav style="display:flex; flex-direction:column; align-items:center; padding: 24px 60px 0; gap:0;">
+    <a href="#" style="text-decoration:none; padding: 16px 0 12px; display:flex; flex-direction:column; align-items:center; gap:6px;">
+      <svg width="36" height="36" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="24" y1="44" x2="24" y2="10" stroke="#b8926a" stroke-width="1" stroke-linecap="round"/>
+        <path d="M24 34 Q14 28 16 20 Q22 24 24 34Z" fill="none" stroke="#b8926a" stroke-width="1" stroke-linejoin="round"/>
+        <path d="M24 24 Q12 20 15 12 Q21 16 24 24Z" fill="none" stroke="#c8bfb0" stroke-width="1" stroke-linejoin="round"/>
+        <path d="M24 30 Q34 24 32 16 Q26 20 24 30Z" fill="none" stroke="#b8926a" stroke-width="1" stroke-linejoin="round"/>
+        <path d="M24 20 Q36 16 33 8 Q27 12 24 20Z" fill="none" stroke="#c8bfb0" stroke-width="1" stroke-linejoin="round"/>
+      </svg>
+      <span style="font-family:'Cormorant Garamond',serif; font-size:2rem; font-weight:200; font-style:italic; letter-spacing:0.3em; color:#2c2520;">Épure</span><span style="font-family:'Cormorant Garamond',serif; font-size:2rem; font-weight:200; font-style:italic; letter-spacing:0.3em; color:#b8926a;"> Living</span>
+    </a>
+    <div style="width:100%; height:1px; background:linear-gradient(to right, transparent, #c9a882, transparent);"></div>
+    <ul class="nav-links" style="padding: 14px 0 20px;">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#capsule">Wardrobe</a></li>
+      <li><a href="#prices">Prices</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <h1 class="hero-title">A home that<br><em>breathes</em><br>with you.</h1>
+      <p class="hero-subtitle">We help you create calm, intentional spaces — decluttering your home and wardrobe so you can focus on what truly matters.</p>
+      <a href="#contact" class="btn-primary">Book a consultation</a>
+    </div>
+    <div class="hero-right">
+      <img src="https://images.unsplash.com/photo-1617214922084-5db8d3c3df5a?w=1200&auto=format&fit=crop&q=80" alt="Minimal home interior" loading="eager" />
+      <div class="hero-right-overlay"></div>
+    </div>
+  </section>
+
+  <div class="strip">
+    <span class="strip-item">Home Organisation</span><span class="strip-dot">·</span>
+    <span class="strip-item">Decluttering</span><span class="strip-dot">·</span>
+    <span class="strip-item">Capsule Wardrobe</span><span class="strip-dot">·</span>
+    <span class="strip-item">Intentional Living</span><span class="strip-dot">·</span>
+    <span class="strip-item">Based in Switzerland</span><span class="strip-dot">·</span>
+    <span class="strip-item">Personalised Consulting</span>
+  </div>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="reveal">
+      <p class="section-label">About Épure Living</p>
+      <h2 class="section-title">Simplicity is a<br><em>choice</em> worth making.</h2>
+      <p class="about-text">Épure Living was born from a belief that our surroundings shape how we feel. When our spaces are cluttered, our minds follow. When our wardrobe is overwhelming, getting dressed becomes a burden instead of a joy.</p>
+      <p class="about-text">I'm Nika, and I guide individuals and families through the process of thoughtfully editing their homes and wardrobes — creating environments that are beautiful, functional, and genuinely theirs.</p>
+    </div>
+    <div class="about-img-wrap reveal">
+      <img src="https://images.unsplash.com/photo-1721738859107-fbe67a0ac3b9?w=900&auto=format&fit=crop&q=80" alt="Walk-in closet with white shelving" />
+      <div class="about-img-caption"><p>"A clear space, a clear mind."</p></div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="services-header reveal">
+      <h2 style="font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,3vw,3rem); font-weight:300; font-style:italic; color:var(--deep); line-height:1.2; letter-spacing:0.02em;">What I Offer</h2>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div style="
+          position: relative;
+          min-height: 340px;
+          display: flex;
+          align-items: center;
+          overflow: hidden;
+        ">
+          <img src="https://images.unsplash.com/photo-1567113463300-102a7eb3cb26?w=800&auto=format&fit=crop&q=80"
+            alt="Home Decluttering"
+            style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0.18; filter:saturate(0.4);"
+          />
+          <div style="position:relative; z-index:1; padding: 48px 36px;">
+            <div class="service-number">01</div>
+            <h3 class="service-title">Home Decluttering</h3>
+            <p class="service-desc">A room-by-room process to sort, simplify, and let go. We work together to decide what earns a place in your home — keeping only what serves you.</p>
+          </div>
+        </div>
+      </div>
+      <div class="service-card reveal">
+        <div style="
+          position: relative;
+          min-height: 340px;
+          display: flex;
+          align-items: center;
+          overflow: hidden;
+        ">
+          <img src="https://images.unsplash.com/photo-1688366150258-bee7b2d02479?w=800&auto=format&fit=crop&q=80"
+            alt="Space Organisation"
+            style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0.18; filter:saturate(0.4);"
+          />
+          <div style="position:relative; z-index:1; padding: 48px 36px;">
+            <div class="service-number">02</div>
+            <h3 class="service-title">Space Organisation</h3>
+            <p class="service-desc">After decluttering, we create smart, intuitive systems for storage and organisation — so everything has a home and stays that way.</p>
+          </div>
+        </div>
+      </div>
+      <div class="service-card reveal">
+        <div style="
+          position: relative;
+          min-height: 340px;
+          display: flex;
+          align-items: center;
+          overflow: hidden;
+        ">
+          <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?w=800&auto=format&fit=crop&q=80"
+            alt="Capsule Wardrobe"
+            style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0.18; filter:saturate(0.4);"
+          />
+          <div style="position:relative; z-index:1; padding: 48px 36px;">
+            <div class="service-number">03</div>
+            <h3 class="service-title">Capsule Wardrobe</h3>
+            <p class="service-desc">Edit your closet down to a curated, versatile collection you truly love. Wake up every morning knowing exactly what to wear — and feeling great in it.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process" id="process">
+    <div class="process-header reveal">
+      <p class="section-label">How it works</p>
+      <h2 class="section-title">A gentle, <em>guided</em> process</h2>
+    </div>
+    <div class="process-grid">
+      <div class="process-item reveal">
+        <div class="process-num">I</div>
+        <div class="process-content">
+          <h4>Discovery Call</h4>
+          <p>We start with a free 30-minute conversation to understand your goals, challenges, and vision for your space.</p>
+        </div>
+      </div>
+      <div class="process-item reveal">
+        <div class="process-num">II</div>
+        <div class="process-content">
+          <h4>Home Visit</h4>
+          <p>I come to you for an in-person session, working side by side through your space or wardrobe at your own pace.</p>
+        </div>
+      </div>
+      <div class="process-item reveal">
+        <div class="process-num">III</div>
+        <div class="process-content">
+          <h4>Edit & Organise</h4>
+          <p>Together we sort, decide, and create beautiful functional systems tailored to your lifestyle and daily rhythms.</p>
+        </div>
+      </div>
+      <div class="process-item reveal">
+        <div class="process-num">IV</div>
+        <div class="process-content">
+          <h4>Follow-Up</h4>
+          <p>A check-in to ensure your new systems are working and to answer any questions that arise along the way.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAPSULE WARDROBE -->
+  <section class="capsule" id="capsule">
+    <div class="capsule-img reveal">
+      <img src="https://images.unsplash.com/photo-1721044168675-b577e899413d?w=1000&auto=format&fit=crop&q=80" alt="Walk-in closet with white cabinets" />
+    </div>
+    <div class="capsule-content reveal">
+      <p class="section-label">Capsule Wardrobe</p>
+      <h2 class="section-title">Dress with<br><em>intention</em>,<br>every day.</h2>
+      <p class="capsule-text">A capsule wardrobe isn't about owning less — it's about owning better. We'll edit your existing wardrobe and build a cohesive collection that works for your lifestyle.</p>
+      <p class="capsule-text">No more standing in front of a full closet with nothing to wear.</p>
+      <div class="capsule-items">
+        <div class="capsule-item">
+          <div class="capsule-item-title">Wardrobe Audit</div>
+          <div class="capsule-item-text">Review every piece — keeping what fits, flatters and aligns with your style.</div>
+        </div>
+        <div class="capsule-item">
+          <div class="capsule-item-title">Style Profile</div>
+          <div class="capsule-item-text">Define your aesthetic, lifestyle needs, and colour palette.</div>
+        </div>
+        <div class="capsule-item">
+          <div class="capsule-item-title">Outfit Formulas</div>
+          <div class="capsule-item-text">Go-to combinations so getting dressed becomes effortless and enjoyable.</div>
+        </div>
+        <div class="capsule-item">
+          <div class="capsule-item-title">Shopping Guide</div>
+          <div class="capsule-item-text">A curated list of gap pieces so you shop with purpose — not impulse.</div>
+        </div>
+      </div>
+      <a href="#contact" class="btn-outline">Start your wardrobe edit</a>
+    </div>
+  </section>
+
+  <!-- PHOTO GALLERY -->
+  <div class="gallery">
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1721044168710-d1686a588a51?w=600&auto=format&fit=crop&q=75" alt="Walk-in closet" />
+      <div class="gallery-label">Wardrobe</div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1645567454567-901dc409551b?w=600&auto=format&fit=crop&q=75" alt="Organised jars" />
+      <div class="gallery-label">Pantry</div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1640803971060-d7724041c09c?w=600&auto=format&fit=crop&q=75&crop=center" alt="Organised home office desk" style="object-position: center center;" />
+      <div class="gallery-label">Home Office</div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1722942116259-3da41d2f7afc?w=600&auto=format&fit=crop&q=75" alt="Room with closet" />
+      <div class="gallery-label">Dressing Room</div>
+    </div>
+  </div>
+
+  <!-- PRICES -->
+  <section id="prices" style="padding: 100px 60px; max-width: 700px; margin: 0 auto; text-align:center;">
+    <div class="reveal" style="margin-bottom: 40px;">
+      <p class="section-label">Investment</p>
+      <h2 class="section-title">Prices</h2>
+    </div>
+    <div class="reveal" style="padding: 48px 0; border-top: 1px solid rgba(200,191,176,0.4); border-bottom: 1px solid rgba(200,191,176,0.4);">
+      <p style="font-family:'Cormorant Garamond',serif; font-size:clamp(2.5rem,6vw,4rem); font-weight:300; color:var(--taupe); margin-bottom:16px;">CHF 80 <span style="font-size:60%;">/h</span></p>
+      <p style="font-size:0.75rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--sage);">Minimum 3 hours</p>
+    </div>
+    <div class="reveal" style="margin-top:32px;">
+      <p style="font-size:0.85rem; line-height:1.9; color:var(--accent);">First consultation is free — <a href="#contact" style="color:var(--taupe); text-decoration:none; border-bottom: 1px solid rgba(140,123,107,0.3);">get in touch to book yours.</a></p>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact-section" id="contact">
+    <div class="contact-img reveal">
+      <img src="https://images.unsplash.com/photo-1667312939978-64cf31718a6e?w=900&auto=format&fit=crop&q=80" alt="Warm minimal interior with lamp and books" />
+    </div>
+    <div class="contact-form-wrap reveal">
+      <p class="section-label">Get in touch</p>
+      <h2 class="section-title">Ready to begin?</h2>
+      <p class="contact-intro">Book a free discovery call or send me a message. I'd love to hear about your space and how I can help you create a home that truly feels like yours.</p>
+      <div class="contact-detail"><span>📍</span><span>Zurich, Switzerland — in-person sessions available</span></div>
+      <div class="contact-detail"><span>✉️</span><span>hello@epureliving.ch</span></div>
+      <div class="contact-form">
+        <div class="form-group">
+          <label class="form-label">Your name</label>
+          <input class="form-input" type="text" placeholder="Marie Dupont" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email address</label>
+          <input class="form-input" type="email" placeholder="marie@email.com" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">What are you looking for?</label>
+          <textarea class="form-textarea" placeholder="Tell me a little about your space or wardrobe..."></textarea>
+        </div>
+        <button class="form-submit">Send message</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-top">
+      <div>
+        <div style="display:flex; flex-direction:column; align-items:flex-start; gap:6px;">
+          <span style="font-family:'Cormorant Garamond',serif; font-size:1.7rem; font-weight:200; font-style:italic; letter-spacing:0.12em; color:#faf8f5; line-height:1;">Épure <span style="color:#b8926a;">Living</span></span>
+          <span style="display:flex; align-items:center; gap:10px;">
+            <span style="width:36px; height:1px; background:#c9a882; display:block;"></span>
+            <span style="font-family:'Jost',sans-serif; font-size:0.48rem; font-weight:300; letter-spacing:0.45em; color:#b8926a; text-transform:uppercase;">Home Organizing _ Capsule Wardrobe</span>
+          </span>
+        </div>
+        <div class="footer-tagline">Intentional spaces. Curated wardrobes.</div>
+      </div>
+      <ul class="footer-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#capsule">Wardrobe</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 Épure Living. All rights reserved.</p>
+      <p class="footer-location">Switzerland 🇨🇭</p>
+    </div>
+  </footer>
+
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 90);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
