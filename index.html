@@ -53,7 +53,10 @@
     .strip-dot { color: var(--taupe); }
 
     /* ABOUT */
-    .about { display: grid; grid-template-columns: 1fr 1fr; max-width: 1300px; margin: 0 auto; padding: 120px 60px; align-items: center; gap: 80px; }
+    .about { position: relative; display: block; padding: 120px 60px;
+      background: linear-gradient(rgba(250,248,245,0.88), rgba(250,248,245,0.88)), url('nika.jpg') center 17% / cover no-repeat; }
+    .about > .reveal { max-width: 640px; margin: 0 auto; }
+    .about .about-text { color: #5e544c; }
     .section-label { font-size: 0.68rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sage); margin-bottom: 22px; }
     .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 3vw, 3rem); font-weight: 300; line-height: 1.2; color: var(--deep); margin-bottom: 28px; }
     .section-title em { font-style: italic; color: var(--taupe); }
@@ -175,7 +178,7 @@
       .hero-left { padding: 50px 24px 40px; }
       .hero-right { height: 280px; }
       .strip { padding: 14px 20px; gap: 24px; }
-      .about { grid-template-columns: 1fr; padding: 60px 24px; gap: 40px; }
+      .about { padding: 70px 24px; background-position: center 25%; }
       .services { padding: 60px 24px; }
       .services-grid { grid-template-columns: 1fr; gap: 16px; }
       .process { padding: 60px 24px; }
@@ -247,10 +250,6 @@
       <h2 class="section-title">Simplicity is a<br><em>choice</em> worth making.</h2>
       <p class="about-text">Épure Living was born from a belief that our surroundings shape how we feel. When our spaces are cluttered, our minds follow. When our wardrobe is overwhelming, getting dressed becomes a burden instead of a joy.</p>
       <p class="about-text">I'm Nika, and I guide individuals and families through the process of thoughtfully editing their homes and wardrobes — creating environments that are beautiful, functional, and genuinely theirs.</p>
-    </div>
-    <div class="about-img-wrap reveal">
-      <img src="https://images.unsplash.com/photo-1721738859107-fbe67a0ac3b9?w=900&auto=format&fit=crop&q=80" alt="Walk-in closet with white shelving" />
-      <div class="about-img-caption"><p>"A clear space, a clear mind."</p></div>
     </div>
   </section>
 
