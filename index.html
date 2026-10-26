@@ -436,47 +436,7 @@
       <p class="contact-intro">Book a free discovery call or send me a message. I'd love to hear about your space and how I can help you create a home that truly feels like yours.</p>
       <div class="contact-detail"><span>📍</span><span>Zurich, Zug, Lucerne, St.Gallen, Chur & surroundings</span></div>
       <div class="contact-detail"><span>✉️</span><a href="mailto:nika.michalka@gmail.com" style="color:var(--taupe); text-decoration:none;">nika.michalka@gmail.com</a></div>
-      <form class="contact-form" id="contact-form">
-        <div class="form-group">
-          <label class="form-label">Your name</label>
-          <input class="form-input" type="text" name="name" placeholder="Marie Dupont" required />
-        </div>
-        <div class="form-group">
-          <label class="form-label">Email address</label>
-          <input class="form-input" type="email" name="email" placeholder="marie@email.com" required />
-        </div>
-        <div class="form-group">
-          <label class="form-label">What are you looking for?</label>
-          <textarea class="form-textarea" name="message" placeholder="Tell me a little about your space or wardrobe..."></textarea>
-        </div>
-        <button type="submit" class="form-submit">Send message</button>
-        <p id="form-success" style="display:none; font-size:0.85rem; color:var(--sage); letter-spacing:0.1em;">Thank you! I'll be in touch soon 🌿</p>
-        <p id="form-error" style="display:none; font-size:0.85rem; color:#a0522d; letter-spacing:0.05em;">Sorry, something went wrong. Please email me at nika.michalka@gmail.com</p>
-      </form>
 
-      <script>
-        const form = document.getElementById('contact-form');
-        form.addEventListener('submit', async (e) => {
-          e.preventDefault();
-          const data = new FormData(form);
-          document.getElementById('form-error').style.display = 'none';
-          try {
-            const response = await fetch('https://formspree.io/f/mlgkrwqa', {
-              method: 'POST',
-              body: data,
-              headers: { 'Accept': 'application/json' }
-            });
-            if (response.ok) {
-              form.reset();
-              document.getElementById('form-success').style.display = 'block';
-            } else {
-              document.getElementById('form-error').style.display = 'block';
-            }
-          } catch (err) {
-            document.getElementById('form-error').style.display = 'block';
-          }
-        });
-      </script>
     </div>
   </section>
 
